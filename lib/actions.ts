@@ -54,9 +54,37 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
   try {
     return await client.request(query, variables);
   } catch (err) {
+    // Handle GraphQL errors here (log or report them).
+    console.error("GraphQL Request Error:", err);
     throw err;
   }
 };
+
+export const fetchAllProjects = (
+  category?: string | null,
+  endcursor?: string | null
+) => {
+  client.setHeader("x-api-key", apiKey);
+
+  // Trim and validate category input
+  const validCategory = category?.trim() || null;
+
+  // Validate endcursor input
+  const validEndcursor = endcursor || null;
+
+  return makeGraphQLRequest(projectsQuery, {
+    category: validCategory,
+    endcursor: validEndcursor,
+  });
+};
+
+/* const makeGraphQLRequest = async (query: string, variables = {}) => {
+  try {
+    return await client.request(query, variables);
+  } catch (err) {
+    throw err;
+  }
+}; */
 
 /* export const fetchAllProjects = (
   category?: string | null,
@@ -67,7 +95,9 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
   return makeGraphQLRequest(projectsQuery, { category, endcursor });
 };
  */
-export const fetchAllProjects = (
+
+
+/* export const fetchAllProjects = (
   category?: string | null,
   endcursor?: string | null
 ) => {
@@ -79,7 +109,7 @@ export const fetchAllProjects = (
     category: validCategory,
     endcursor,
   });
-};
+}; */
 export const createNewProject = async (
   form: ProjectForm,
   creatorId: string,

@@ -131,7 +131,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
         type="url"
         title="Website URL"
         state={form.liveSiteUrl}
-        placeholder="https://IAmTheBest.com"
+        placeholder="https://twitter.com"
         setState={(value) => handleStateChange("liveSiteUrl", value)}
       />
 
